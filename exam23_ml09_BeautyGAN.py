@@ -23,14 +23,14 @@ import numpy as np
 
 #detector는 얼굴을 찾아주는 detector 사진에서 얼굴 영역 찾기 / 얼굴의 랜드마크 찾아주는 모델 - face_landmark
 detector = dlib.get_frontal_face_detector()
-sp = dlib.shape_predictor('./models/shape_predictor_5_face_landmarks.dat') 
+sp = dlib.shape_predictor('../models/shape_predictor_5_face_landmarks.dat')
 #모양을 예측해주는 모델 - 얼굴의 5개의 랜드마크 예측해주는 모델 
 
 
 # In[3]:
 
 
-img = dlib.load_rgb_image('./imgs/11.jpg')#이미지 부르기 
+img = dlib.load_rgb_image('../imgs/11.jpg')#이미지 부르기
 plt.figure(figsize=(16,10))
 plt.imshow(img)#이미지니까 imshow
 plt.show()
@@ -100,7 +100,7 @@ def align_faces(img):
 
 #위에 있는 함수 실행 
 #읽어서 테스트 함수 만들어줌 
-test_img = dlib.load_rgb_image('./imgs/02.jpg')
+test_img = dlib.load_rgb_image('../imgs/02.jpg')
 test_faces = align_faces(test_img) #faces는 얼굴이미지들을 리턴해주는 함수
 fig, axes = plt.subplots(1, len(test_faces)+1, figsize=(20, 16)) #얼굴갯수+1 만큼 subplot그려주기 
 axes[0].imshow(test_img)
@@ -114,8 +114,8 @@ for i, face in enumerate(test_faces):
 #INFO:tensorflow:Restoring parameters from ./models\model 이거 뜨면 모델 잘 불러온 거다
 sess = tf.Session()
 sess.run(tf.global_variables_initializer())
-saver = tf.train.import_meta_graph('./models/model.meta')
-saver.restore(sess,tf.train.latest_checkpoint('./models'))
+saver = tf.train.import_meta_graph('../models/model.meta')
+saver.restore(sess,tf.train.latest_checkpoint('../models'))
 graph = tf.get_default_graph()
 X = graph.get_tensor_by_name('X:0')
 Y = graph.get_tensor_by_name('Y:0')
@@ -138,10 +138,10 @@ def deprocess(img):
 
 #이미지 보여주고 시각화 하기 
 
-img1 = dlib.load_rgb_image('./imgs/no_makeup/xfsy_0405.png')#노메이크업 , 소스
+img1 = dlib.load_rgb_image('../imgs/no_makeup/xfsy_0405.png')#노메이크업 , 소스
 img1_faces = align_faces(img1)
 
-img2 = dlib.load_rgb_image('./imgs/makeup/5.jpg') #레퍼런스 이미지 
+img2 = dlib.load_rgb_image('../imgs/makeup/XMY-014.png') #레퍼런스 이미지
 img2_faces = align_faces(img2)
 
 fig, axes = plt.subplots(1,2,figsize =(16,10))
